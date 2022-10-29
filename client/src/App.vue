@@ -1,11 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
+import session, {logout} from "./stores/session";
+
 </script>
 <template>
-  <nav class="navbar is-white has-shadow is-spaced" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-white has-shadow is-spaced" role="navigation" aria-label="main navigation" >
     <div class="navbar-brand">
       <a class="navbar-item">
-        <h><strong>WORKOUT APP</strong></h>
+        <h><strong>Fab & Fit & Fun</strong></h>
       </a>
       <a
         role="button"
@@ -21,14 +23,23 @@ import { RouterLink, RouterView } from "vue-router";
     </div>
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-start">
-        <RouterLink class="navbar-item" to="/">Home</RouterLink>
+        <RouterLink class="navbar-item" to="/home">Home</RouterLink>
+        <RouterLink class="navbar-item" to="/about">About</RouterLink>
+        <RouterLink class="navbar-item" to="/users">Friends Activity</RouterLink>
+
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
+          <div class="buttons" v-if="!session.user">
             <RouterLink class="button is-primary" to="/signup"><strong>Sign up</strong></RouterLink>
             <RouterLink class="button is-light" to="/signin">Sign in</RouterLink>
           </div>
+          <div v-else>
+              Welcome {{session.user.firstName}}  {{session.user.lastName}}<br>
+                <button class="button is-primary" @click="logout()">
+                    Log out
+                </button>
+    </div>
         </div>
       </div>
     </div>

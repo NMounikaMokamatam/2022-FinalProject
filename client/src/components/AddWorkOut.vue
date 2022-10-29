@@ -1,3 +1,16 @@
+<script>
+import {ref} from 'vue'
+import session from '../stores/session';
+let excersiseName = ref('');
+
+function addExcersise(){
+    console.log("Enter")
+    session.user.excersise.unshift({
+      excersiseName
+    })
+}
+</script>
+
 <template>
   <div class="columns is-mobile is-centered">
     <div
@@ -10,9 +23,7 @@
           <div class="control">
             <input
               class="input"
-              name="email"
-              type="email"
-              placeholder="Enter exercise name"
+              placeholder="Enter exercise name" v-model="excersiseName"
             />
           </div>
         </div>
@@ -26,7 +37,7 @@
             ></textarea>
           </div>
         </div>
-        <button class="button is-primary">Save</button>
+        <button type="submit" class="button is-primary" v-on:click="addExcersise()">Save</button>
       </div>
     </div>
   </div>

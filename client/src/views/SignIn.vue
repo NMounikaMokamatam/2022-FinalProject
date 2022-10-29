@@ -1,23 +1,34 @@
+<script setup lang="ts">
+import { logicalExpression } from '@babel/types';
+import * as users from '../data/users'
+import {ref} from 'vue'
+import { login } from '../stores/session'
+const useremail = ref('');
+const password = ref('');
+
+function Login(){
+  login(useremail.value,password.value)
+}
+
+</script>
 <template>
   <div class="columns is-mobile is-centered">
-    <div
-      class="column top-gap is-11-mobile is-half-tablet is-half-desktop is-half-widescreen is-half-fullhd"
-    >
+    <div class="column top-gap is-11-mobile is-half-tablet is-half-desktop is-half-widescreen is-half-fullhd">
       <div class="box">
         <h1 class="title text-center">Signin</h1>
         <div class="field">
           <label class="label">Email</label>
           <div class="control">
-            <input class="input" name="email" type="email" placeholder="Enter your email" />
+            <input v-model="useremail" class="input" name="email" type="email" placeholder="Enter your email" />
           </div>
         </div>
         <div class="field">
           <label class="label">Password</label>
           <div class="control">
-            <input class="input" name="password" type="password" placeholder="Enter password" />
+            <input v-model="password" class="input" name="password" type="password" placeholder="Enter password" />
           </div>
         </div>
-        <button class="button is-primary">Sign in</button>
+        <button class="button is-primary" v-on:click="Login()">Sign in</button>
       </div>
     </div>
   </div>

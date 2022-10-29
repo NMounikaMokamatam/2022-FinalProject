@@ -1,14 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
+//import logo from"../assets/1.jpg";
 import HomeView from "../views/HomeView.vue";
 import SignUp from "../views/SignUp.vue";
 import SignIn from "../views/SignIn.vue";
+import AboutView from "../views/AboutView.vue"
+import UserView from "../views/Users.vue"
+import session from "../stores/session";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'is-active',
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "home",
       component: HomeView,
     },
@@ -22,17 +26,26 @@ const router = createRouter({
       name: "signin",
       component: SignIn,
     },
-    /*
     {
       path: "/about",
       name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/AboutView.vue"),
+      component: AboutView,
     },
-    */
+    {
+      path: "/users",
+      name: "users",
+      component: UserView,
+    },
+    
   ],
 });
+
+router.beforeEach((to, from) => {
+  if (['/home', '/users'].includes(to.path)) {
+      if (!session.user) {
+          return '/signin';
+      }
+  }
+})
 
 export default router;
