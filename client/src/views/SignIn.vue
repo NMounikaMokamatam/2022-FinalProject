@@ -6,7 +6,7 @@ import { login } from '../stores/session'
 const useremail = ref('');
 const password = ref('');
 
-function Login(){
+function userLogin(){
   login(useremail.value,password.value)
 }
 
@@ -28,7 +28,7 @@ function Login(){
             <input v-model="password" class="input" name="password" type="password" placeholder="Enter password" />
           </div>
         </div>
-        <button class="button is-primary" v-on:click="Login()">Sign in</button>
+        <button class="button is-primary" v-on:click="userLogin()">Sign in</button>
       </div>
     </div>
   </div>

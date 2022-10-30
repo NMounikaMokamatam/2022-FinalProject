@@ -6,7 +6,7 @@ export interface User {
     email:string,
     username:string,
     password:string,
-    excersisesList: any
+    excersisesList: any // Array of objects
 }
 
 export const list: User[] = [

@@ -9,6 +9,7 @@ const session = reactive( {
 export function login(email: string, password: string) {
     var user = users.list.find(u => u.email === email);
     if(!user){
+        router.push("/signup")
         throw { message: "User not found"}
     }
     if(user.password !== password){
