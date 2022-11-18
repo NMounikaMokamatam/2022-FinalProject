@@ -9,6 +9,7 @@ function addExcersise(){
       excersiseName
     })
 }
+ 
 </script>
 
 <template>
@@ -38,6 +39,7 @@ function addExcersise(){
           </div>
         </div>
         <button type="submit" class="button is-primary" v-on:click="addExcersise()">Save</button>
+        <button type="delete" class="button is-light" v-on:click="deleteExcersise()">Delete</button>
       </div>
     </div>
   </div>

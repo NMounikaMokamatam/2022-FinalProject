@@ -1,15 +1,15 @@
 <script setup lang="ts"></script>
 <template>
-    <main class="columns is-centered is-vcentered is-mobile"> </main>
+    <main class="columns is-centered is-vcentered is-mobile asset1"> </main>
   </template>
 <style scoped>
-main {
+.asset1 {
   background-image: url(../assets/1.jpg);
   background-position: center center;
   background-repeat: no-repeat;
+  -o-background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: 100% 100%;
   min-height: 120vh;
   color: white;
