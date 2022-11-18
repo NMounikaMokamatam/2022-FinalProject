@@ -3,6 +3,7 @@ import {ref} from 'vue'
 import session from "../stores/session";
 
 
+
 let excersiseName = ref('');
 let description = ref('');
 
@@ -13,12 +14,14 @@ function addExcersise(){
       description: description.value
     })
 }
+
 </script>
 <template>
-  <div class="columns is-mobile is-centered">
-    <div
-      class="column top-gap is-11-mobile is-half-tablet is-half-desktop is-half-widescreen is-half-fullhd"
-    >
+   <main class="columns is-centered is-vcentered is-mobile">
+  <div class="columns is-mobile is-centered container">
+    <div class="column top-gap is-11-mobile is-half-tablet is-half-desktop is-half-widescreen is-half-fullhd">
+     
+
       <div class="box">
         <h1 class="title text-center">New Workout Exercise</h1>
         <div class="field">
@@ -54,14 +57,57 @@ function addExcersise(){
         <p>{{e.description}}</p>
       </div>
     </div>
-  </div>
+    </div>
+</main>
 </template>
-<style>
+<style scoped>
+
+main {
+  background-image: url(../assets/2.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100% 100%;
+  min-height: 120vh;
+  color: white;
+}
+.primary {
+  color: #e40215;
+}
+.primary-background {
+  background-color: #e40215;
+}
+.secondary {
+  color: #f5f5f5;
+}
+
 .top-gap {
   margin-top: 2rem;
 }
 .text-center {
   text-align: center;
+}
+.notification{
+  background-color: whitesmoke;
+    border-radius: 10px;
+    position: relative;
+}
+.navbar.is-spaced {
+    padding: 10 px 0px;
+}
+
+.column {
+    display: block;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0.75px;
+}
+
+.box {
+  margin-top:left ;
 }
 </style>
 

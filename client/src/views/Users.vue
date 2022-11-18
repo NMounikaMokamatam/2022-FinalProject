@@ -3,6 +3,7 @@ import * as users from "../data/users";
 
 </script>
 <template>
+ 
 <div class="card" v-for="u in users.list">
   <div class="card-content">
     <div class="media">

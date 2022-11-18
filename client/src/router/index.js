@@ -1,16 +1,28 @@
 import { createRouter, createWebHistory } from "vue-router";
-//import logo from"../assets/1.jpg";
+import logoview from"../views/logoView.vue";
+import fitness from "../views/fitness.vue";
 import HomeView from "../views/HomeView.vue";
 import SignUp from "../views/SignUp.vue";
 import SignIn from "../views/SignIn.vue";
 import AboutView from "../views/AboutView.vue"
 import UserView from "../views/Users.vue"
-import session from "../stores/session";
+import session from "../stores/session"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: 'is-active',
   routes: [
+    {
+      path: "/",
+      name:"logoView",
+      component: logoview,
+       },
+      {
+        path: "/fitness",
+        name: "/fitness",
+        component: fitness,
+      }, 
     {
       path: "/home",
       name: "home",

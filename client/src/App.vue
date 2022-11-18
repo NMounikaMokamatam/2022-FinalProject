@@ -7,7 +7,8 @@ import session, {logout} from "./stores/session";
   <nav class="navbar is-white has-shadow is-spaced" role="navigation" aria-label="main navigation" >
     <div class="navbar-brand">
       <a class="navbar-item">
-        <h><strong>Fab & Fit & Fun</strong></h>
+
+        <h><RouterLink class="navbar-item" to="/">Fab & Fit & Fun</RouterLink></h>
       </a>
       <a
         role="button"
@@ -25,6 +26,7 @@ import session, {logout} from "./stores/session";
       <div class="navbar-start">
         <RouterLink class="navbar-item" to="/home">Home</RouterLink>
         <RouterLink class="navbar-item" to="/about">About</RouterLink>
+        <RouterLink class="navbar-item" to="/fitness">Fitness</RouterLink>
         <RouterLink class="navbar-item" to="/users">Friends Activity</RouterLink>
 
       </div>
