@@ -66,7 +66,7 @@ export default defineComponent({
   height: 50%;
 }
 .main{
-  background-image: url(../assets/2.jpg);
+  background-image: url(../assets/5.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
