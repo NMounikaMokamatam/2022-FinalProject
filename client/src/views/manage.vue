@@ -81,7 +81,7 @@ width: 50%;
 height: 400px;
 }
 #delete {
-  color: red;
+  color: #FF0000;
   cursor: pointer;
 
 }

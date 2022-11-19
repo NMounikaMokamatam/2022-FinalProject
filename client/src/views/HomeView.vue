@@ -84,7 +84,7 @@ main {
 }
 
 .top-gap {
-  margin-top: 2rem;
+  margin-top: 2px;
 }
 .text-center {
   text-align: center;
