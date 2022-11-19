@@ -7,6 +7,7 @@ import SignIn from "../views/SignIn.vue";
 import AboutView from "../views/AboutView.vue"
 import UserView from "../views/Users.vue"
 import session from "../stores/session"
+import ManageView from "../views/manage.vue"
 
 
 const router = createRouter({
@@ -48,12 +49,16 @@ const router = createRouter({
       name: "users",
       component: UserView,
     },
-    
+    {
+      path: "/manage",
+      name: "manage",
+      component: ManageView,
+    },
   ],
 });
 
 router.beforeEach((to, from) => {
-  if (['/home', '/users'].includes(to.path)) {
+  if (['/home', '/users', '/manage'].includes(to.path)) {
       if (!session.user) {
           return '/signin';
       }

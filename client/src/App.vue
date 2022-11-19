@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import session, {logout} from "./stores/session";
 
+
 </script>
 <template>
   <nav class="navbar is-white has-shadow is-spaced" role="navigation" aria-label="main navigation" >
@@ -27,7 +28,8 @@ import session, {logout} from "./stores/session";
         <RouterLink class="navbar-item" to="/home">Home</RouterLink>
         <RouterLink class="navbar-item" to="/about">About</RouterLink>
         <RouterLink class="navbar-item" to="/fitness">Fitness</RouterLink>
-        <RouterLink class="navbar-item" to="/users">Friends Activity</RouterLink>
+        <RouterLink class="navbar-item" to="/users" v-if="!session.isAdmin">Friends Activity</RouterLink>
+        <RouterLink class="navbar-item" to="/manage" v-if="session.isAdmin">Manage Users</RouterLink>
 
       </div>
       <div class="navbar-end">

@@ -11,9 +11,10 @@ import * as users from "../data/users";
         <p class="title is-4">{{u.firstName}}  {{u.lastName}}({{u.age + "years"}})</p>
       </div>
     </div>
-
+    Excersises:
+    <hr>
     <div class="content" v-for="excersise in u.excersisesList">
-      {{excersise}}
+       {{excersise.excersise}} ---   {{excersise.description}}
     </div>
   </div>
 </div>
