@@ -12,7 +12,7 @@
   -moz-background-size: cover;
   background-size: 100% 100%;
   min-height: 120vh;
-  color: #FFFFFF;
+  color: white;
 }
 .primary {
   color: #3a3334;

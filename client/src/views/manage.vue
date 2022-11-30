@@ -16,7 +16,6 @@ export default defineComponent({
   methods: {
     deleteUser(deleteuser) {
       this.generalUsers = this.generalUsers.filter((user) => user.email != deleteuser.email)
-      console.log(this.generalUsers.length)
     }
   }
 })
@@ -66,7 +65,7 @@ export default defineComponent({
   height: 50%;
 }
 .main{
-  background-image: url(../assets/5.jpg);
+  background-image: url(../assets/2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -81,7 +80,7 @@ width: 50%;
 height: 400px;
 }
 #delete {
-  color: #FF0000;
+  color: red;
   cursor: pointer;
 
 }

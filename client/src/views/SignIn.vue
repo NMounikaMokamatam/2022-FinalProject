@@ -35,7 +35,7 @@ function userLogin(){
 </template>
 <style>
 .top-gap {
-  margin-top: 2px;
+  margin-top: 2rem;
 }
 .text-center{
     text-align: center;

@@ -84,13 +84,13 @@ main {
 }
 
 .top-gap {
-  margin-top: 2px;
+  margin-top: 2rem;
 }
 .text-center {
   text-align: center;
 }
 .notification{
-  background-color: #F5F5F5;
+  background-color: whitesmoke;
     border-radius: 10px;
     position: relative;
 }
