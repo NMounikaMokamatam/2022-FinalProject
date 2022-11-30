@@ -25,7 +25,7 @@ export const list: User[] = [
         age: 19,
         email: 'W@gmail.com',
         username: 'Nancy',
-        password: "QWERTY!12345",
+        password: "12345",
         excersisesList: [
             { excersise: "Legs", description: "100 Squats" },
             { excersise: "Running", description: "10 miles" }
@@ -46,7 +46,7 @@ export const list: User[] = [
         age: 21,
         email: 'S@gmail.com',
         username: 'Steve',
-        password: "QWERTY!12345",
+        password: "12345",
         excersisesList: [
             { excersise: "Legs", description: "100 Squats" },
             { excersise: "Running", description: "10 miles" }
@@ -68,19 +68,13 @@ export const list: User[] = [
         age: 23,
         email: 'D@gmail.com',
         username: 'Dustin',
-        password: "QWERTY!12345",
+        password: "12345",
         excersisesList: [
             { excersise: "Pushups", description: "100 pushups" },
             { excersise: "Pullups", description: "50 pullups" }
         ],
         isAdmin: false,
-        comments: [{
-            title: 'First Comment',
-            createdBy: 'Dustin'
-        },{
-            title: 'Second Comment',
-            createdBy: 'Henderson'
-        }]
+        comments: []
     },
     {
         id: 3,
@@ -89,7 +83,7 @@ export const list: User[] = [
         age: 28,
         email: 'M.W@gmail.com',
         username: 'Mary',
-        password: "QWERTY!123456",
+        password: "123456",
         excersisesList: [],
         isAdmin: true,
         comments: []
