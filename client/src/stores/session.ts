@@ -1,30 +1,48 @@
 import { reactive } from "vue";
-import * as users from '../data/users'
+// import * as users from '../data/users'
 import router from "../router/index"
 
 const session = reactive({
-    user: null as users.User | null,
+    user: null as User | null,
     isAdmin: null as boolean | null,
 });
 
 export function login(email: string, password: string) {
-    var user = users.list.find(u => u.email === email);
-    console.log(user)
-    if (!user) {
-        router.push("/signup")
-        throw { message: "User not found" }
-    }
-    if (user.password !== password) {
-        throw { message: "Password Incorrect" }
-    }
+    let user;
+    const API_URL = "http://localhost:3000/api/users/auth"
+    const body = JSON.stringify(
+        {
+            email: email,
+            password: password
+        }
+    );
 
-    session.user = user;
-    if (user.isAdmin) {
-        session.isAdmin = true;
-        router.push('/manage');
-    } else {
-        router.push('/home');
-    }
+    fetch(API_URL, {
+        method: "POST",
+        body: body,
+        headers: {
+            "content-type": "application/json"
+        }
+    })
+        .then(response => response.json())
+        .then(result => {
+            if (!result) {
+                router.push("/signup")
+                throw { message: "User not found" }
+            } else {
+                user = result
+                session.user = user;
+
+                if (user.isAdmin) {
+                    session.isAdmin = true;
+                    router.push('/manage');
+                } else {
+                    router.push('/home');
+                }
+
+            }
+        });
+
 
 }
 
@@ -37,6 +55,8 @@ export function logout() {
 export class User {
     public email?: string;
     public password?: string;
+    public _id?: string;
+    public username: string;
 }
 
 
