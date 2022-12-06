@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "npm i -ws && npm run build -ws",
-    "dev": "nodemon --watch server server/index.js",
+    "dev": "nodemon --watch server/index.js",
     "start": "node server/index.js"
   },
   "workspaces": [

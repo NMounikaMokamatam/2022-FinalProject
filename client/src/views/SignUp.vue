@@ -42,7 +42,6 @@
 </template>
 <script>
 import router from "../router/index"
-
 const API_URL = "http://localhost:3000/api/users";
 
 export default {
