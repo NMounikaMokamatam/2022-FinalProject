@@ -6,36 +6,87 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      session: session.user,
-      generalUsers: users.list,
+      //NEW
+      loggednUser: session.user?.username,
       inputComment: false,
-      comments: users.list[0].comments,
-      currentUserComments: users.list[0].username + " " + users.list[0].lastName,
       commentText: "",
-      userInfo: users.list[0]
+      allUsers: [],
+      currentSelectedUser: {},
+      currentSelectedUserComments: [],
+      currentSelectedUserExcercises: [],
+      currentSelectedUserStringInfo: ""
+
     }
   },
+  mounted() {
+    fetch("http://localhost:3000/api/users")
+      .then(response => response.json())
+      .then(result => {
+        this.allUsers = result.filter((user) => !user.isAdmin);
+        this.currentSelectedUser = result[0]
+        this.currentSelectedUserStringInfo = result[0].username + " " + result[0].lastName
+
+
+        fetch("http://localhost:3000/api/comments/" + this.currentSelectedUser._id)
+          .then(response => response.json())
+          .then(result => {
+            this.currentSelectedUserComments = result
+          });
+
+        fetch("http://localhost:3000/api/excercises/" + this.currentSelectedUser._id)
+          .then(response => response.json())
+          .then(result => {
+            this.currentSelectedUserExcercises = result
+          });
+
+      });
+
+  },
   methods: {
-    deleteUser(deleteuser) {
-      this.generalUsers = this.generalUsers.filter((user) => user.email != deleteuser.email)
-    },
     showCommentBox(user) {
       this.inputComment = true
-      this.comments = user.comments
-      this.currentUserComments = user.username + " " + user.lastName
-      this.userInfo = user
+      this.currentSelectedUserStringInfo = user.username + " " + user.lastName
+      this.currentSelectedUser = user
+
+      fetch("http://localhost:3000/api/comments/" + user._id)
+        .then(response => response.json())
+        .then(result => {
+          this.currentSelectedUserComments = result
+        });
+
     },
     addComment() {
-      this.comments.push({ title: this.commentText, createdBy: this.session?.username, })
+      const body = JSON.stringify({
+        commentTo: this.currentSelectedUser._id,
+        title: this.commentText,
+        createdBy: session.user?.username,
+      });
+
+      fetch("http://localhost:3000/api/comments", {
+        method: "POST",
+        body: body,
+        headers: {
+          "content-type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(result => {
+          this.currentSelectedUserComments.push(result);
+        });
       //reset
       this.commentText = ""
       this.inputComment = false
     },
     getComments(user) {
       this.inputComment = false
-      this.userInfo = user
-      this.currentUserComments = user.username + " " + user.lastName
-      this.comments = this.userInfo.comments
+      this.currentSelectedUser = user
+      this.currentSelectedUserStringInfo = user.username + " " + user.lastName
+      fetch("http://localhost:3000/api/comments/" + user._id)
+        .then(response => response.json())
+        .then(result => {
+          this.currentSelectedUserComments = result
+        });
+
     }
   }
 })
@@ -45,36 +96,41 @@ export default defineComponent({
 
 
   <div class="columns">
+
     <div class="column">
-      <div class="card" v-for="u in generalUsers.filter((user) => !user.isAdmin)"
-        style="height: 250px; width: 600px; margin-bottom: 5px;">
+      <div class="card" v-for="u in this.allUsers" style="height: 250px; width: 600px; margin-bottom: 5px;">
         <div class="card-content">
           <div class="media">
             <div class="media-content">
               <p class="title is-4">{{ u.firstName }} {{ u.lastName }} ({{ u.age + " years" }})</p>
             </div>
           </div>
-          <div class="content" v-for="excersise in u.excersisesList">
-            {{ excersise.excersise }}: {{ excersise.description }}
+          <div class="content" v-for="excercise in this.currentSelectedUserExcercises">
+            {{ excercise.excercise }}: {{ excercise.description }}
           </div>
           <div>
-            <span v-if="(u.comments.length > 0)" style="color:coral">{{ u.comments.length }} comments</span>
-            <span v-if="(u.comments.length == 0)" style="color:coral">Be the first to comment</span>
             <span
               style="color: blue; cursor: pointer; float: right; background-color:aquamarine; padding: 10px; color: black;"
               v-on:click="showCommentBox(u)">Comment</span>
             <span style="padding: 20px; float: right; "></span>
             <span
               style="color: blue; cursor: pointer; float: right; background-color:coral; padding: 10px; color: black;"
-              v-if="(u.comments.length > 0)" v-on:click="getComments(u)">Read comments
+              v-on:click="getComments(u)">Read comments
             </span>
           </div>
         </div>
       </div>
     </div>
     <div class="column" style="margin-top: 15px;">
+      <h1 style="font-weight: bold; margin-bottom: 20px;">Comments for {{ currentSelectedUserStringInfo }}</h1>
+      <h3>
+        <span v-if="(this.currentSelectedUserComments.length > 0)" style="color:coral">{{
+            this.currentSelectedUserComments.length
+        }} comments</span>
+        <span v-if="(this.currentSelectedUserComments.length == 0)" style="color:coral">Be the first to
+          comment</span>
+      </h3><br>
       <div v-if="inputComment">
-        <h1 style="font-weight: bold; margin-bottom: 20px;">Comments for {{ currentUserComments }}</h1>
 
         Add Comment
         <textarea class="textarea is-info" placeholder="Add your comments here" v-model="commentText">
@@ -85,13 +141,12 @@ export default defineComponent({
         </div>
       </div>
       <div v-else>
-        <h1 style="font-weight: bold; margin-bottom: 20px;">Comments for {{ currentUserComments }}</h1>
-        <p v-if="(comments.length == 0)">There no comments for this user</p>
+        <p v-if="(this.currentSelectedUserComments.length == 0)">There no comments for this user</p>
         <div v-else>
-          <article class="message" style="margin-top: 3px;" v-for="comment in comments">
-            <div class="message-body"  >
-              <strong>{{comment.createdBy}}</strong><br>
-              {{comment.title}}
+          <article class="message" style="margin-top: 3px;" v-for="comment in this.currentSelectedUserComments">
+            <div class="message-body">
+              <strong>{{ comment.createdBy }} said</strong><br>
+              {{ comment.title }}
             </div>
           </article>
         </div>
@@ -100,6 +155,3 @@ export default defineComponent({
   </div>
 
 </template>
-
-       
- 

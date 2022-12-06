@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { logicalExpression } from '@babel/types';
-import * as users from '../data/users'
 import {ref} from 'vue'
 import { login } from '../stores/session'
 const useremail = ref('');
 const password = ref('');
 
 function userLogin(){
+
   login(useremail.value,password.value)
 }
 
